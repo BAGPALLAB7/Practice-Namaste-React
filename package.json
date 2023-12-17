@@ -1,0 +1,27 @@
+{
+  "name": "namastereact",
+  "version": "1.0.0",
+  "description": "This is introduction project of namaste react",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BAGPALLAB7/Practice-Namaste-React.git"
+  },
+  "author": "Pallab Bag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BAGPALLAB7/Practice-Namaste-React/issues"
+  },
+  "homepage": "https://github.com/BAGPALLAB7/Practice-Namaste-React#readme",
+  "devDependencies": {
+    "parcel": "^2.10.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
