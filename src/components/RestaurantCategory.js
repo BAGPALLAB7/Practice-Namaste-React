@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Menu from "./Menu";
 
 const RestaurantCategory = (props) => {
-    console.log("rescat component call");
+   // console.log("rescat component call");
   const { category , categoryIndex, showIndex, setShowIndex} = props;
   const [showMenu, setShowMenu]= useState(true);
   const checkShow= () =>{
@@ -19,15 +19,13 @@ const RestaurantCategory = (props) => {
     )
   }
 const handleClick = () => {
-    console.log("categoryIndex", categoryIndex);
+    if(showMenu == false){
+      setShowMenu(true);
+    }
     setShowIndex(categoryIndex);
-    console.log("showMenu",showMenu);
 
     
 }
-useEffect(()=>{
-console.log("showIndex",showIndex);
-},[showIndex])
 
   return (
     <div className="w-7/12 mx-auto">

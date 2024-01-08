@@ -32,7 +32,7 @@ const Restaurant = () => {
   if (restaurantData == null) {
     return <Shimmer />;
   }
-  console.log(item);
+  //console.log(item);
   return (
     <>
       <div className=" bg-slate-200 w-7/12 mx-auto my-6 p-4 rounded-md">
