@@ -1,0 +1,1 @@
+{"mappings":";;;;;;;;;;;;;;;;;;;;AAAA,MAAM,gCAAU;IACZ,qBACI,gCAAC;kBAAG;;AAEZ;IAEA,2CAAe","sources":["src/components/Grocery.js"],"sourcesContent":["const Grocery = () => {\n    return (\n        <h2>This is our Grocery page, here you can find all your daily grocery.</h2>\n    )\n}\n\nexport default Grocery;"],"names":[],"version":3,"file":"Grocery.a27e18a7.js.map"}

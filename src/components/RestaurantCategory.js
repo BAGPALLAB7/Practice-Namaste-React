@@ -6,11 +6,11 @@ const RestaurantCategory = (props) => {
   const { category , categoryIndex, showIndex, setShowIndex} = props;
   const [showMenu, setShowMenu]= useState(true);
   const checkShow= () =>{
-    console.log("clicked");
+    //console.log("clicked");
 
     if (showIndex == categoryIndex){
         setShowMenu(!showMenu);
-        console.log("showMenu",showMenu);
+        //console.log("showMenu",showMenu);
 
     }
     else(

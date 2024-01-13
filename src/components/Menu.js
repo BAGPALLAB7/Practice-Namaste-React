@@ -1,8 +1,15 @@
 import ShimmerDish from "./ShimmerDish";
 import { CDN_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/Store/cartSlice";
 
 const Menu = (props) => {
   const { itemCards, index, setShow } = props;
+  const dispatch = useDispatch();
+  const handleAddItem = (menu) => {
+    dispatch(addItem(menu));
+  };
+
   return (
     <div className="p-3">
       {itemCards.map((menu) => {
@@ -21,7 +28,7 @@ const Menu = (props) => {
               </p>
               <p className=" p-1 text-xs">{menu.card?.info?.description}</p>
             </div>
-            <div className="w-32 m-2">
+            <div className="w-32 m-2 cursor-pointer" onClick={() => handleAddItem(menu.card?.info)}>
               <div className="flex justify-center">
                 <span className="absolute p-1 bg-black text-white font-bold bg-opacity-60 items-center hover:bg-white hover:text-black rounded-lg">
                   Add+

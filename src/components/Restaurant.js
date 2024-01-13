@@ -11,7 +11,8 @@ const Restaurant = () => {
   const { id } = useParams();
 
   const fetchRestaurant = async () => {
-    const fetchData = await fetch(MENU_URL + id);
+    let finalUrl = MENU_URL+id;
+    const fetchData = await fetch('https://corsproxy.org/?'+encodeURIComponent(finalUrl));
     const jsonData = await fetchData.json();
 
     const allItem =
