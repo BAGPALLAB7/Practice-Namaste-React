@@ -14,8 +14,10 @@ const Restaurant = () => {
     let finalUrl = MENU_URL+id;
     const fetchData = await fetch('https://corsproxy.org/?'+encodeURIComponent(finalUrl));
     const jsonData = await fetchData.json();
-
-    const allItem =
+    console.log(jsonData);
+    console.log(window.innerWidth);
+    if(window.innerWidth >= 780){
+      const allItem =
       (jsonData.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
         (item) =>
           item.card?.card?.["@type"] ==
@@ -24,16 +26,31 @@ const Restaurant = () => {
     setItem(allItem);
 
     setRestaurantData(jsonData.data?.cards[0]?.card?.card?.info);
+    }
+    else{
+      const allItem =
+      (jsonData.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
+        (item) =>
+          item.card?.card?.["@type"] ==
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
+    setItem(allItem);
+
+    setRestaurantData(jsonData.data?.cards[2]?.card?.card?.info);
+    }
+
+    
 
   };
   useEffect(() => {
     fetchRestaurant();
   }, []);
+  console.log("inside restaurant allitem - :"+item);
+  console.log("inside restaurant restaurantData - :"+restaurantData);
 
   if (restaurantData == null) {
     return <Shimmer />;
   }
-  //console.log(item);
   return (
     <>
       <div className=" bg-slate-200 w-7/12 mx-auto my-6 p-4 rounded-md">

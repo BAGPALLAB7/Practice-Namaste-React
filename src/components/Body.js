@@ -22,7 +22,10 @@ const Body = () => {
     //   "https://corsproxy.io/?"+encodeURIComponent("/https://www.swiggy.com/api/seo/getListing?lat=22.69048851118229&lng=88.39274636162034")
     // );
     const fetchedData = await fetch(
-      'https://corsproxy.org/?'+encodeURIComponent('https://www.swiggy.com/api/seo/getListing?lat=22.69048851118229&lng=88.39274636162034')
+      "https://corsproxy.org/?" +
+        encodeURIComponent(
+          "https://www.swiggy.com/api/seo/getListing?lat=22.69048851118229&lng=88.39274636162034"
+        )
     );
 
     const jsonData = await fetchedData.json();
@@ -64,25 +67,29 @@ const Body = () => {
 
   return (
     <div className="body">
-      <div className="flex py-4">
-        <input
-          type="text"
-          className="border-2 border-blue-300 w-64 rounded-s-md ms-4"
-          placeholder="chinese, pizza or restaurant name"
-          onChange={(e) => changeHandeler(e)}
-        />
-        <button
-          className="bg-blue-300 w-32 rounded-e-md"
-          onClick={() => searchRestro(searchData)}
-        >
-          Search
-        </button>
-        <button
-          className="bg-blue-300 mx-4 w-40 rounded-md"
-          onClick={() => filterResto()}
-        >
-          Filer Restaurants
-        </button>
+      <div className="md:flex py-6 md:py-3 px-0 mx-0 w-screen">
+        <div className="w-screen flex justify-center md:flex-none md:w-80 ">
+          <input
+            type="text"
+            className="border-2 border-blue-300 md:w-full md:rounded-r-none text-md rounded-md md:text-md w-11/12 mx-auto md:ml-10"
+            placeholder="chinese, pizza or restaurant name"
+            onChange={(e) => changeHandeler(e)}
+          />
+        </div>
+        <div className="my-3 md:my-0 w-screen flex justify-evenly md:justify-start ">
+          <button
+            className="bg-blue-300 md:w-32 w-5/12 p-1  md:px-5 rounded-md md:rounded-l-none text-md md:text-md"
+            onClick={() => searchRestro(searchData)}
+          >
+            Search
+          </button>
+          <button
+            className="bg-blue-300 md:mx-4 md:w-56 w-5/12 p-1 md:px-5 rounded-md text-md md:text"
+            onClick={() => filterResto()}
+          >
+            Filer Restaurants
+          </button>
+        </div>
       </div>
       <div className="flex flex-wrap mx-4">
         {filteredSearchData.map((restaurant) => (

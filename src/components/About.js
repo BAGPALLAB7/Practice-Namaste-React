@@ -1,6 +1,4 @@
 import User from "./User";
-import UserClass from "./UserClass";
-import UserClass from "./UserClass";
 const About = () => {
   return (
     <div className="w-6/12 mx-auto flex flex-col items-center ">
