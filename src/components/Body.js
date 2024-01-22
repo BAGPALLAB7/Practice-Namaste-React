@@ -84,10 +84,10 @@ const Body = () => {
             Search
           </button>
           <button
-            className="bg-blue-300 md:mx-4 md:w-56 w-5/12 p-1 md:px-5 rounded-md text-md md:text"
+            className="bg-blue-300 md:mx-4 md:w-32 w-5/12 p-1 md:px-5 rounded-md text-md md:text"
             onClick={() => filterResto()}
           >
-            Filer Restaurants
+            Top Rated
           </button>
         </div>
       </div>

@@ -28,7 +28,7 @@ const handleClick = () => {
 }
 
   return (
-    <div className="w-7/12 mx-auto">
+    <div className="w-11/12 md:w-7/12 mx-auto">
       <div className="my-3 border-gray-400 border-b-8">
         <div className="flex justify-between items-center cursor-pointer bg-slate-50" onClick={checkShow}>
           <h3 className="m-4 font-bold text-lg">

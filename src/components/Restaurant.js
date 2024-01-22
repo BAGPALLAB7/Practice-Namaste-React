@@ -53,8 +53,8 @@ const Restaurant = () => {
   }
   return (
     <>
-      <div className=" bg-slate-200 w-7/12 mx-auto my-6 p-4 rounded-md">
-        <h1 className="font-bold text-4xl">{restaurantData.name}</h1>
+      <div className=" bg-slate-200 w-11/12 md:w-7/12 mx-auto my-6 p-4 rounded-md">
+        <h1 className="font-bold text-lg md:text-4xl">{restaurantData.name}</h1>
         <div className="flex justify-between items-center content-center">
           <h2>{restaurantData.cuisines.join(", ")}</h2>
           <h2>⭐️{restaurantData.avgRating} </h2>
