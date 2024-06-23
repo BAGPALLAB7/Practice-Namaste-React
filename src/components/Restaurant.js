@@ -3,53 +3,64 @@ import Shimmer from "./Shimmer";
 import { MENU_URL } from "../utils/constants";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
+import { restaurantList } from "../utils/Data/StaticResturantList";
+import SkeletonComponent from "./MUI skeleton/SkeletonComponent";
 
 const Restaurant = () => {
   const [restaurantData, setRestaurantData] = useState(null);
   const [showIndex, setShowIndex] = useState(null);
   const [item, setItem] = useState([]);
   const { id } = useParams();
+  const [fetchedJsonData, setfetchedJsonData] = useState(null);
 
   const fetchRestaurant = async () => {
-    let finalUrl = MENU_URL+id;
-    const fetchData = await fetch('https://corsproxy.org/?'+encodeURIComponent(finalUrl));
-    const jsonData = await fetchData.json();
-    console.log(jsonData);
-    console.log(window.innerWidth);
-    if(window.innerWidth >= 780){
-      const allItem =
-      (jsonData.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
-        (item) =>
-          item.card?.card?.["@type"] ==
-          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-      );
-    setItem(allItem);
-
-    setRestaurantData(jsonData.data?.cards[0]?.card?.card?.info);
+    let finalUrl = MENU_URL + id;
+    // const fetchData = await fetch('https://corsproxy.org/?'+encodeURIComponent(finalUrl));
+    try {
+      const fetchData = await fetch(finalUrl);
+      const jsonData = await fetchData.json();
+      setfetchedJsonData(jsonData);
+    } catch {
+      console.log("restaurant id", id);
+      console.log("fetch data from local data", restaurantList[id]);
+      setfetchedJsonData(restaurantList[id]);
     }
-    else{
-      const allItem =
-      (jsonData.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
-        (item) =>
-          item.card?.card?.["@type"] ==
-          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-      );
-    setItem(allItem);
-
-    setRestaurantData(jsonData.data?.cards[2]?.card?.card?.info);
-    }
-
-    
-
   };
+  useEffect(() => {
+    if (window.innerWidth >= 780) {
+      const allItem =
+        (fetchedJsonData?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
+          (item) =>
+            item.card?.card?.["@type"] ==
+            "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        );
+      setItem(allItem);
+
+      setRestaurantData(fetchedJsonData?.data?.cards[2]?.card?.card?.info);
+    } else {
+      const allItem =
+        (fetchedJsonData?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards).filter(
+          (item) =>
+            item.card?.card?.["@type"] ==
+            "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        );
+      setItem(allItem);
+
+      setRestaurantData(fetchedJsonData?.data?.cards[2]?.card?.card?.info);
+    }
+  }, [fetchedJsonData, item]);
+
+  console.log(window.innerWidth);
+
   useEffect(() => {
     fetchRestaurant();
   }, []);
-  console.log("inside restaurant allitem - :"+item);
-  console.log("inside restaurant restaurantData - :"+restaurantData);
+
+  console.log("inside restaurant allitem - :" + item);
+  console.log("inside restaurant restaurantData - :" + restaurantData);
 
   if (restaurantData == null) {
-    return <Shimmer />;
+    return <SkeletonComponent />;
   }
   return (
     <>
@@ -60,7 +71,6 @@ const Restaurant = () => {
           <h2>⭐️{restaurantData.avgRating} </h2>
         </div>
       </div>
-      
 
       {item.map((i, index) => (
         <RestaurantCategory
@@ -70,7 +80,7 @@ const Restaurant = () => {
           showIndex={showIndex}
           setShowIndex={setShowIndex}
         />
-      ))} 
+      ))}
     </>
   );
 };

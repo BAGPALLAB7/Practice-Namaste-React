@@ -13,6 +13,7 @@ const Grocery = lazy(() => import("./components/Grocery"));
 import appStore from "./utils/Store/appStore";
 import { Provider } from "react-redux";
 import Cart from "./components/Cart";
+import SkeletonComponent from "./components/MUI skeleton/SkeletonComponent";
 
 const AppLayout = () => {
   return (
@@ -35,6 +36,7 @@ const appRouter = createBrowserRouter([
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
       { path: "/cart", element: <Cart /> },
+      {path: "/skeleton", element: <SkeletonComponent /> },
       {
         path: "/restaurant/:id",
         element: <Restaurant />,

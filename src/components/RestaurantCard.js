@@ -7,7 +7,7 @@ export const RestaurantCard = (props) => {
   console.log("cdn-url for restaurant-card: "+CDN_URL);
 
   return (
-    <div className="w-40 p-1 m-2 h-auto md:w-72 md:w-[300px] md:p-2 md:mx-6 my-3 bg-slate-200  md:h-[26rem] rounded-xl">
+    <div className="w-5/12 p-1 h-auto md:w-80 md:m-4 md:p-2 mx-auto  my-3 bg-slate-200   rounded-xl">
       <div className="restaurant-details">
         <Link to={"/restaurant/" + id} key={id}>
         <div className="shadow-blue-300 shadow-2xl">

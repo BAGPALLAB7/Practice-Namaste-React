@@ -1,12 +1,14 @@
 import { RestaurantCard } from "./RestaurantCard";
-import { restoList } from "../utils/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+
 import FetchError from "./FetchError";
+import { json } from "../utils/Data/StaticData";
+import SkeletonComponent from "./MUI skeleton/SkeletonComponent";
 
 const Body = () => {
   //console.log("Body component rendered.");
-  const [restaurantList, setRestaurantList] = useState([]);
+  const [restaurantList, setRestaurantList] = useState(null);
   const [filteredSearchData, setFilteredSearchedData] = useState([]);
   const [searchData, setSearchData] = useState("");
 
@@ -18,26 +20,39 @@ const Body = () => {
     setFilteredSearchedData(filteredList);
   };
   const fetchAPI = async () => {
-    // const fetchedData = await fetch(
-    //   "https://corsproxy.io/?"+encodeURIComponent("/https://www.swiggy.com/api/seo/getListing?lat=22.69048851118229&lng=88.39274636162034")
+    //  const fetchedData = await fetch(
+    //    "https://corsproxy.io/?"+encodeURIComponent("/https://www.swiggy.com/api/seo/getListing?lat=22.69048851118229&lng=88.39274636162034")
     // );
-    const fetchedData = await fetch(
-      "https://corsproxy.org/?" +
-        encodeURIComponent(
-          "https://www.swiggy.com/api/seo/getListing?lat=22.69048851118229&lng=88.39274636162034"
-        )
-    );
-
-    const jsonData = await fetchedData.json();
-    console.log(jsonData);
-    setRestaurantList(
-      jsonData?.data?.success?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
-    setFilteredSearchedData(
-      jsonData?.data?.success?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants
-    );
+    
+    try {
+      const fetchedData = await fetch(
+        "https://crossorigin.me/" +
+          encodeURIComponent(
+            "https://www.swiggy.com/api/seo/getListing?lat=22.69048851118229&lng=88.39274636162034"
+          )
+      );
+      const jsonData = await fetchedData.json();
+      setRestaurantList(
+        jsonData?.data?.success?.cards[1]?.card?.card?.gridElements
+          ?.infoWithStyle?.restaurants
+      );
+      // jsonData = json;
+      setFilteredSearchedData(
+        jsonData?.data?.success?.cards[1]?.card?.card?.gridElements
+          ?.infoWithStyle?.restaurants
+      );
+    } catch {
+      jsonData = json;
+      setRestaurantList(
+        jsonData?.data?.success?.cards[1]?.card?.card?.gridElements
+          ?.infoWithStyle?.restaurants
+      );
+      // jsonData = json;
+      setFilteredSearchedData(
+        jsonData?.data?.success?.cards[1]?.card?.card?.gridElements
+          ?.infoWithStyle?.restaurants
+      );
+    }
   };
   // console.log(restaurantList);
 
@@ -61,11 +76,11 @@ const Body = () => {
     fetchAPI();
   }, []);
 
-  if (restaurantList.length == 0) {
-    return <Shimmer />;
+  if (restaurantList== null) {
+    return <SkeletonComponent/>
   }
-
   return (
+      restaurantList ?
     <div className="body">
       <div className="md:flex py-6 md:py-3 px-0 mx-0 w-screen">
         <div className="w-screen flex justify-center md:flex-none md:w-80 ">
@@ -91,18 +106,14 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-wrap mx-4">
+      <div className="flex flex-wrap w-full mx-auto ">
         {filteredSearchData.map((restaurant) => (
           <RestaurantCard key={restaurant.info.id} restoData={restaurant} />
         ))}
-        {/* <RestaurantCard restoData={restoList[0]} />
-          <RestaurantCard restoData={restoList[1]} />
-          <RestaurantCard restoData={restoList[2]} />
-          <RestaurantCard restoData={restoList[3]} />
-          <RestaurantCard restoData={restoList[4]} />
-          <RestaurantCard restoData={restoList[5]} /> */}
       </div>
     </div>
+    :
+    <SkeletonComponent/>
   );
 };
 

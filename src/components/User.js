@@ -3,9 +3,14 @@ import { useEffect, useState } from "react";
 const User = () => {
   const [userData, setUserData] = useState([]);
   const fetchUser = async () => {
-    const data = await fetch("https://api.github.com/users/bagpallab7");
+    try {
+      const data = await fetch("https://api.github.com/users/bagpallab7");
     const jsondata = await data.json();
     setUserData(jsondata);
+    } catch (error) {
+      return <h1>{error}</h1>
+    }
+    
   };
 
   useEffect(() => {
